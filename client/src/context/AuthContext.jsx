@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
 
     const register = async (username, password) => {
         try {
-            await axios.post('http://localhost:5000/api/auth/register', { username, password });
+            await axios.post('/api/auth/register', { username, password });
             toast.success('Registration successful! Please login.');
             return true;
         } catch (error) {
