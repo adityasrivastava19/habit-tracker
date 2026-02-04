@@ -5,8 +5,13 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 const verifyToken = (req, res, next) => {
-    const token = req.header('Authorization');
-    if (!token) return res.status(401).json({ message: 'Access Denied' });
+    const authHeader = req.header('Authorization');
+    if (!authHeader) return res.status(401).json({ message: 'Access Denied' });
+
+    // Extract token from "Bearer <token>" format or use raw token
+    const token = authHeader.startsWith('Bearer ')
+        ? authHeader.slice(7)
+        : authHeader;
 
     try {
         const verified = jwt.verify(token, process.env.JWT_SECRET || 'secret');
