@@ -11,9 +11,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/habit-tracker')
+// Ensure MONGO_URI is set
+if (!process.env.MONGO_URI) {
+    console.error('ERROR: MONGO_URI environment variable is not set!');
+    process.exit(1);
+}
+
+mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('MongoDB Connected'))
-    .catch(err => console.log(err));
+    .catch(err => {
+        console.error('MongoDB connection error:', err);
+        process.exit(1);
+    });
 
 app.use('/api/auth', authRoutes);
 app.use('/api/habits', habitRoutes);
