@@ -1,0 +1,19 @@
+{
+    "name": "habit-tracker",
+    "version": "1.0.0",
+    "description": "Full-stack Habit Tracker with React and Node.js",
+    "scripts": {
+        "install-all": "cd client && npm install && cd ../server && npm install",
+        "build": "cd client && npm run build",
+        "start": "cd server && node server.js",
+        "dev": "concurrently \"cd client && npm run dev\" \"cd server && node server.js\""
+    },
+    "keywords": [
+        "habit-tracker",
+        "react",
+        "nodejs",
+        "mongodb"
+    ],
+    "author": "Aditya Srivastava",
+    "license": "MIT"
+}
