@@ -15,17 +15,17 @@ export const AuthProvider = ({ children }) => {
         const savedUser = localStorage.getItem('username');
         if (token && savedUser) {
             setUser({ username: savedUser, token });
-            axios.defaults.headers.common['Authorization'] = token;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         }
         setLoading(false);
     }, []);
 
     const login = async (username, password) => {
         try {
-            const { data } = await axios.post('http://localhost:5000/api/auth/login', { username, password });
+            const { data } = await axios.post('/api/auth/login', { username, password });
             localStorage.setItem('token', data.token);
             localStorage.setItem('username', data.username);
-            axios.defaults.headers.common['Authorization'] = data.token;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
             setUser({ username: data.username, token: data.token });
             toast.success('Welcome back!');
             return true;

@@ -22,7 +22,7 @@ export default function Dashboard() {
 
     const fetchHabits = async () => {
         try {
-            const { data } = await axios.get('http://localhost:5000/api/habits');
+            const { data } = await axios.get('/api/habits');
             setHabits(data);
         } catch (error) {
             console.error(error);
@@ -33,7 +33,7 @@ export default function Dashboard() {
         e.preventDefault();
         if (!newHabit.trim()) return;
         try {
-            const { data } = await axios.post('http://localhost:5000/api/habits', {
+            const { data } = await axios.post('/api/habits', {
                 name: newHabit,
                 scheduledTime: scheduledTime || null
             });
@@ -62,7 +62,7 @@ export default function Dashboard() {
             });
             setHabits(updatedHabits);
 
-            await axios.put(`http://localhost:5000/api/habits/${habitId}`, {
+            await axios.put(`/api/habits/${habitId}`, {
                 date: dateStr,
                 completed: !isCompleted
             });
@@ -74,7 +74,7 @@ export default function Dashboard() {
     const deleteHabit = async (id) => {
         if (!confirm('Delete this habit?')) return;
         try {
-            await axios.delete(`http://localhost:5000/api/habits/${id}`);
+            await axios.delete(`/api/habits/${id}`);
             setHabits(habits.filter(h => h._id !== id));
         } catch (error) {
             console.error(error);
